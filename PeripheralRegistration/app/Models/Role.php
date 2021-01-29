@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class Role extends Model
+{
+    use HasFactory;
+
+    /**
+     *
+     */
+    public function abilities(): BelongsToMany
+    {
+        return $this->belongsToMany(Ability::class)->withTimestamps();
+    }
+
+    /**
+     * @param $ability
+     */
+    public function allowTo($ability)
+    {
+        $this->abilities()->save($ability);
+    }
+}
